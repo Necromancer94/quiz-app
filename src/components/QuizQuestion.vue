@@ -28,6 +28,7 @@ function storeData(event, inputType) {
             input = ''
         }
 
+        event.target.value = input
         state.selectedOption = input
     }
 
