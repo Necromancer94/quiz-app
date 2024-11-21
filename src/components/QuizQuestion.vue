@@ -64,7 +64,7 @@ onMounted(() => {
             <fieldset>
                 <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id">
 
-                    <div v-if="questionObj.imagePaths">
+                    <div class="img-container" v-if="questionObj.imagePaths">
                         <img :src="questionObj.imagePaths[index]">
                     </div>
 
@@ -129,5 +129,26 @@ fieldset>div {
 
 input {
     margin-right: 8px;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    fieldset>div {
+        width: 100%;
+    }
+
+    .img-container {
+        order: 2;
+    }
+
+    input[type='number'] {
+        min-height: 2rem;
+    }
+
+    main {
+        min-height: 100svh;
+    }
+
 }
 </style>

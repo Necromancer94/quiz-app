@@ -43,4 +43,12 @@ const props = defineProps({
     border-radius: var(--rounded);
     animation: slide-in 0.2s ease-in-out;
 }
+
+@media screen and (max-width: 768px) {
+
+    .error-container {
+        width: 100%;
+    }
+
+}
 </style>

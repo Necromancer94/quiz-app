@@ -126,4 +126,16 @@ main>div:not(.slide-container) {
   justify-content: inherit;
   flex-direction: inherit;
 }
+
+@media screen and (max-width: 768px) {
+
+  button {
+    min-width: 100%;
+  }
+
+  main {
+    min-height: 100svh;
+  }
+
+}
 </style>
