@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { questions } from "@/data/questions";
 import { defineStore } from 'pinia'
+import { useTimerStore } from "./timer";
 
 export const useQuizStore = defineStore('quiz', () => {
 
@@ -26,6 +27,9 @@ export const useQuizStore = defineStore('quiz', () => {
 
     function startQuiz() {
         state.value.status = 'in progress'
+
+        const timerStore = useTimerStore()
+        timerStore.startTimer()
     }
 
     function finishQuiz() {
@@ -39,6 +43,9 @@ export const useQuizStore = defineStore('quiz', () => {
                 state.value.currentPoints += 10
             }
         })
+
+        const timerStore = useTimerStore()
+        timerStore.resetTimer()
     }
 
     function restartQuiz() {

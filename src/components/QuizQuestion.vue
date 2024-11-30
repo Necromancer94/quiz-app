@@ -2,7 +2,7 @@
 
 import { useQuizStore } from '@/stores/state';
 import ErrorMessage from './ErrorMessage.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const quizStore = useQuizStore()
 const state = quizStore.state
@@ -14,6 +14,7 @@ const props = defineProps({
         required: true,
     }
 })
+
 
 function storeData(event, inputType) {
     if (inputType === 'number-input') {
@@ -33,12 +34,29 @@ function storeData(event, inputType) {
     }
 
     if (inputType === 'single') {
-        let option = event.target.parentNode.querySelector('label').textContent
+        let option = event.currentTarget.querySelector('label').textContent
         state.selectedOption = option
+    }
+
+    if (inputType === 'range') {
+        state.selectedOption = parseInt(event.target.value)
+        selectedVal.value = parseInt(event.target.value)
+    }
+
+    if (inputType === 'textbox') {
+
+        let input = event.target.value
+        const lowercased = input.toLowerCase()
+        const normalizedInput = lowercased.replace(lowercased[0], lowercased[0].toUpperCase())
+
+        event.target.value = normalizedInput
+        state.selectedOption = normalizedInput
     }
 }
 
 function findAnswer(targetAnswer) {
+    if (state.selectedOption) return state.selectedOption === targetAnswer
+
     const currentAnswer = state.userAnswers[state.currentSlide - 1]
     return currentAnswer === targetAnswer
 }
@@ -48,9 +66,16 @@ function findNum() {
     return currentAnswer ?? ''
 }
 
+function findText() {
+    const currentAnswer = state.userAnswers[state.currentSlide - 1]
+    if (currentAnswer) return currentAnswer
+}
+
 onMounted(() => {
     state.selectedOption = state.userAnswers[state.currentSlide - 1] ?? null
 })
+
+const selectedVal = ref(findNum())
 
 </script>
 
@@ -62,17 +87,20 @@ onMounted(() => {
 
         <div v-if="questionObj.type === 'single'">
             <fieldset>
-                <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id">
+                <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id"
+                    @click="storeData($event, questionObj.type)">
 
                     <div class="img-container" v-if="questionObj.imagePaths">
                         <img :src="questionObj.imagePaths[index]">
                     </div>
 
-                    <div>
-                        <input :checked="findAnswer(answer)" type="radio" :id="'opt' + questionObj.id"
-                            name="single-choice" @change="storeData($event, questionObj.type)">
-                        <label :for="'opt' + questionObj.id"> {{ answer }} </label>
+                    <div class="label-container">
+                        <div class="radio-btn" :id="'opt' + (index + 1)" name="single-choice">
+                            <div :class="findAnswer(answer) ? 'radio-btn-active' : ''"></div>
+                        </div>
+                        <label :for="'opt' + (index + 1)"> {{ answer }} </label>
                     </div>
+
                 </div>
             </fieldset>
             <ErrorMessage :errorText="'Select an option before proceeding'"></ErrorMessage>
@@ -87,12 +115,66 @@ onMounted(() => {
             <ErrorMessage :errorText="'Type a year before proceeding'"></ErrorMessage>
         </div>
 
+        <div v-if="questionObj.type === 'range'">
+
+            <div class="range-container">
+                <label for="range">Drag to the right number </label>
+                <div>
+                    <span>{{ questionObj.rangeStart }}</span>
+                    <input @change="storeData($event, questionObj.type)" :value="findNum()" type="range" id="range"
+                        name="range" step="1" :min="questionObj.rangeStart" :max="questionObj.rangeEnd">
+                    <span>{{ questionObj.rangeEnd }}</span>
+                </div>
+
+                <p>Selected: {{ selectedVal }}</p>
+            </div>
+            <ErrorMessage :errorText="'Select a number before proceeding'"></ErrorMessage>
+        </div>
+
+        <div v-if="questionObj.type === 'textbox'">
+
+            <div class="text-input-container">
+                <label for="textbox"> Type your answer</label>
+                <input @change="storeData($event, questionObj.type)" :value="findText()" type="text" name="textbox"
+                    id="textbox">
+            </div>
+
+            <ErrorMessage :errorText="'Type something before proceeding'"></ErrorMessage>
+        </div>
+
+
     </div>
 
 </template>
 
 
 <style scoped>
+.range-container,
+.text-input-container {
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+}
+
+.range-container>div {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.range-container>p {
+    margin-top: 1rem;
+}
+
+#range {
+    max-width: 40rem;
+    width: 50%;
+    background: transparent;
+}
+
+#range:focus {
+    outline: none;
+}
+
 fieldset img {
     width: 5rem;
 }
@@ -125,12 +207,44 @@ fieldset>div {
     background: white;
     width: 49%;
     padding: 16px;
+    cursor: pointer;
+
+    &:hover {
+        border: 0.5px solid var(--blue);
+        scale: 1.005;
+    }
+}
+
+.label-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-btn {
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: white;
+    border: 1px solid var(--grey);
+    border-radius: 50%;
+    position: relative;
+}
+
+.radio-btn-active {
+    background-color: var(--blue);
+    border-color: var(--blue);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    position: absolute;
+    inset: 50% 50%;
+    transform: translate(-50%, -50%);
 }
 
 input {
     margin-right: 8px;
 }
-
 
 @media screen and (max-width: 768px) {
 
@@ -142,13 +256,20 @@ input {
         order: 2;
     }
 
-    input[type='number'] {
+    input[type='number'],
+    .text-input-container>input {
         min-height: 2rem;
+    }
+
+    input[type='range'] {
+        width: 100%;
     }
 
     main {
         min-height: 100svh;
     }
+
+
 
 }
 </style>

@@ -120,4 +120,34 @@ export const questions = [
         "correctAnswer": "The attack on Fort Sumter"
     },
 
+    {
+        "id": 10,
+        "question": "How many US states were there in 1790?",
+
+        "answers": null,
+
+        "type": "range",
+        "rangeStart": 10,
+        "rangeEnd": 20,
+
+        "correctAnswer": 13
+    },
+
+
+    {
+        "id": 11,
+        "question": "What is the largest US state by landmass?",
+        "answers": null,
+        "type": "textbox",
+        "correctAnswer": "Alaska"
+    },
+
+    {
+        "id": 12,
+        "question": "What is the smallest US state by population?",
+        "answers": null,
+        "type": "textbox",
+        "correctAnswer": "Wyoming"
+    },
+
 ]

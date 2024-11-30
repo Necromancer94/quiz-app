@@ -80,7 +80,7 @@ function goNext() {
     pointer-events: none;
     font-weight: normal;
     background: var(--grey);
+    opacity: 0.5;
     color: black;
-    text-decoration: line-through;
 }
 </style>

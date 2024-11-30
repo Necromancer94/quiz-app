@@ -28,6 +28,18 @@ const props = defineProps({
 
 
 <style scoped>
+@keyframes slide-in {
+    from {
+        top: 80px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
 .error-container {
     box-shadow: var(--shadow);
     display: flex;

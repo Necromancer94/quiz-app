@@ -40,11 +40,6 @@ section {
     box-shadow: var(--shadow);
 }
 
-/* .sidebar {
-    height: 100%;
-    background-color: var(--grey);
-} */
-
 .slide-container {
     display: flex;
     flex-direction: column;

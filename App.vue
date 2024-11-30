@@ -5,9 +5,13 @@ import { questions } from '@/data/questions';
 import SlideNavigation from '@/components/SlideNavigation.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import { useQuizStore } from '@/stores/state';
+import Timer from '@/components/Timer.vue';
+import { useTimerStore } from '@/stores/timer';
 
 const quizStore = useQuizStore()
 const state = quizStore.state
+
+const timerStore = useTimerStore()
 
 </script>
 
@@ -28,6 +32,11 @@ const state = quizStore.state
 
     <div v-if="state.status === 'in progress'" v-for="question in questions" :key=question.id>
       <Slide v-if="question.id === state.currentSlide">
+
+        <KeepAlive>
+          <Timer></Timer>
+        </KeepAlive>
+
         <ProgressBar v-if="state.currentSlide <= state.totalSlides"></ProgressBar>
         <QuizQuestion :questionObj="question"></QuizQuestion>
         <SlideNavigation></SlideNavigation>
@@ -65,8 +74,11 @@ const state = quizStore.state
     <Slide v-if="state.status === 'finish'">
       <div>
         <h2>You've finished the quiz</h2>
+        <p v-if="timerStore.timer.finished" style="margin-bottom: 2rem;">
+          You've run out of time.
+        </p>
         <p style="margin-bottom: 2rem;">
-          You scored {{ state.currentPoints }} of {{ state.totalPoints }}.
+          You've scored {{ state.currentPoints }} of {{ state.totalPoints }}.
         </p>
         <button @click="quizStore.restartQuiz()">Try again</button>
       </div>

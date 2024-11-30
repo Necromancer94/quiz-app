@@ -82,13 +82,13 @@ p {
 
 button {
   font-weight: 700;
-  padding: 8px 12px;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--rounded);
   border: none;
   box-shadow: var(--shadow);
   cursor: pointer;
   background-color: var(--grey);
-  min-width: 80px;
+  min-width: 5rem;
 }
 
 h1 {
@@ -123,16 +123,4 @@ input {
   box-shadow: var(--shadow);
   outline: none;
   border: 0.5px solid var(--grey)
-}
-
-@keyframes slide-in {
-  from {
-    top: 80px;
-    opacity: 0;
-  }
-
-  to {
-    top: 0px;
-    opacity: 1;
-  }
 }
