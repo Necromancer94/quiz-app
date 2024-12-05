@@ -53,10 +53,8 @@ div {
     font-weight: 500;
     margin: 1rem auto;
     padding: 1rem;
-}
 
-@media screen and (max-width: 768px) {
-    div {
+    @media screen and (max-width:768px) {
         margin: 0 0 2rem 0;
         padding: 0.8rem;
     }

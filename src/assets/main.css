@@ -114,13 +114,13 @@ h4 {
   margin-bottom: 1.25rem;
 }
 
-input:focus {
-  outline: 1px solid var(--blue);
-}
-
 input {
   border-radius: var(--rounded);
   box-shadow: var(--shadow);
   outline: none;
-  border: 0.5px solid var(--grey)
+  border: 0.5px solid var(--grey);
+
+  &:focus {
+    outline: 1px solid var(--blue);
+  }
 }

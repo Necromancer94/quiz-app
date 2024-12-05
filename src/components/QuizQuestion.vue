@@ -15,7 +15,6 @@ const props = defineProps({
     }
 })
 
-
 function storeData(event, inputType) {
     if (inputType === 'number-input') {
 
@@ -88,7 +87,8 @@ const selectedVal = ref(findNum())
         <div v-if="questionObj.type === 'single'">
             <fieldset>
                 <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id"
-                    @click="storeData($event, questionObj.type)">
+                    @click="storeData($event, questionObj.type)" tabindex="0"
+                    @keydown.enter="quizStore.incrementSlide()">
 
                     <div class="img-container" v-if="questionObj.imagePaths">
                         <img :src="questionObj.imagePaths[index]">
@@ -110,7 +110,7 @@ const selectedVal = ref(findNum())
             <fieldset class="col">
                 <label for="number-input"> Type your answer </label>
                 <input :value="findNum()" type="number" id="number-input" name="number-input" maxlength="4"
-                    @keyup="storeData($event, questionObj.type)">
+                    @keyup="storeData($event, questionObj.type)" @keydown.enter="quizStore.incrementSlide()">
             </fieldset>
             <ErrorMessage :errorText="'Type a year before proceeding'"></ErrorMessage>
         </div>
@@ -121,8 +121,9 @@ const selectedVal = ref(findNum())
                 <label for="range">Drag to the right number </label>
                 <div>
                     <span>{{ questionObj.rangeStart }}</span>
-                    <input @change="storeData($event, questionObj.type)" :value="findNum()" type="range" id="range"
-                        name="range" step="1" :min="questionObj.rangeStart" :max="questionObj.rangeEnd">
+                    <input @change="storeData($event, questionObj.type)" @keydown.enter="quizStore.incrementSlide()"
+                        :value="findNum()" type="range" id="range" name="range" step="1" :min="questionObj.rangeStart"
+                        :max="questionObj.rangeEnd">
                     <span>{{ questionObj.rangeEnd }}</span>
                 </div>
 
@@ -135,8 +136,8 @@ const selectedVal = ref(findNum())
 
             <div class="text-input-container">
                 <label for="textbox"> Type your answer</label>
-                <input @change="storeData($event, questionObj.type)" :value="findText()" type="text" name="textbox"
-                    id="textbox">
+                <input @keydown.enter="quizStore.incrementSlide()" @change="storeData($event, questionObj.type)"
+                    :value="findText()" type="text" name="textbox" id="textbox">
             </div>
 
             <ErrorMessage :errorText="'Type something before proceeding'"></ErrorMessage>
@@ -156,31 +157,47 @@ const selectedVal = ref(findNum())
     gap: 1rem;
 }
 
-.range-container>div {
-    display: flex;
-    gap: 0.5rem;
+.text-input-container>input {
+
+    @media screen and (max-width: 768px) {
+        min-height: 2rem;
+    }
 }
 
-.range-container>p {
-    margin-top: 1rem;
+.range-container {
+
+    &div {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    &p {
+        margin-top: 1rem;
+    }
 }
+
+
 
 #range {
     max-width: 40rem;
     width: 50%;
     background: transparent;
-}
 
-#range:focus {
-    outline: none;
-}
+    &:focus {
+        outline: none;
+    }
 
-fieldset img {
-    width: 5rem;
+    @media screen and (max-width:768px) {
+        width: 100%;
+    }
 }
 
 #number-input {
     width: max-content;
+
+    @media screen and (max-width:768px) {
+        min-height: 2rem;
+    }
 }
 
 .col {
@@ -195,23 +212,28 @@ fieldset {
     border-radius: var(--rounded);
     border: none;
     width: 100%;
-}
 
-fieldset>div {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    box-shadow: var(--shadow);
-    border: 0.2px solid var(--grey);
-    border-radius: var(--rounded);
-    background: white;
-    width: 49%;
-    padding: 16px;
-    cursor: pointer;
+    &>div {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: var(--shadow);
+        border: 0.2px solid var(--grey);
+        border-radius: var(--rounded);
+        background: white;
+        width: 49%;
+        padding: 16px;
+        cursor: pointer;
 
-    &:hover {
-        border: 0.5px solid var(--blue);
-        scale: 1.005;
+        &:hover {
+            border: 0.5px solid var(--blue);
+            transform: scale(1.005);
+        }
+
+        @media screen and (max-width:768px) {
+            width: 100%;
+            justify-content: space-between;
+        }
     }
 }
 
@@ -246,30 +268,12 @@ input {
     margin-right: 8px;
 }
 
-@media screen and (max-width: 768px) {
+.img-container {
+    width: 5rem;
 
-    fieldset>div {
-        width: 100%;
-    }
-
-    .img-container {
+    @media screen and (max-width:768px) {
         order: 2;
+        width: 3rem;
     }
-
-    input[type='number'],
-    .text-input-container>input {
-        min-height: 2rem;
-    }
-
-    input[type='range'] {
-        width: 100%;
-    }
-
-    main {
-        min-height: 100svh;
-    }
-
-
-
 }
 </style>

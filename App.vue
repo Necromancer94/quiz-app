@@ -90,24 +90,27 @@ const timerStore = useTimerStore()
 </template>
 
 <style scoped>
-form>div {
-  margin-bottom: 1.5rem;
+form {
+  &>div {
+    margin-bottom: 1.5rem;
+  }
+
+  &>p {
+    margin-bottom: 2.5rem;
+    max-width: 720px;
+  }
 }
 
-form>p {
-  margin-bottom: 2.5rem;
-  max-width: 720px;
-}
 
 .form-field {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
 
-.form-field>input {
-  min-height: 40px;
-  padding-left: 20px;
+  &>input {
+    min-height: 40px;
+    padding-left: 20px;
+  }
 }
 
 input {
@@ -121,6 +124,10 @@ button {
   min-width: 280px;
   color: white;
   margin-top: 1rem;
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%;
+  }
 }
 
 main {
@@ -129,6 +136,10 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    min-height: 100svh;
+  }
 }
 
 main>div:not(.slide-container) {
@@ -137,17 +148,5 @@ main>div:not(.slide-container) {
   align-items: inherit;
   justify-content: inherit;
   flex-direction: inherit;
-}
-
-@media screen and (max-width: 768px) {
-
-  button {
-    min-width: 100%;
-  }
-
-  main {
-    min-height: 100svh;
-  }
-
 }
 </style>

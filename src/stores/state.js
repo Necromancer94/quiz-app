@@ -18,7 +18,13 @@ export const useQuizStore = defineStore('quiz', () => {
     })
 
     function incrementSlide() {
-        ++state.value.currentSlide
+        if (state.value.selectedOption) {
+            ++state.value.currentSlide
+        }
+
+        else {
+            state.value.isErrorVisible = true
+        }
     }
 
     function decrementSlide() {

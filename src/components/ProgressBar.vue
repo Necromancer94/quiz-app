@@ -50,6 +50,5 @@ h4 {
 .bar-progress {
     background: var(--blue);
     min-height: 20px;
-    /* animation: move 1.5s linear infinite; */
 }
 </style>
