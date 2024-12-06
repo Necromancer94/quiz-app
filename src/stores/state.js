@@ -18,13 +18,7 @@ export const useQuizStore = defineStore('quiz', () => {
     })
 
     function incrementSlide() {
-        if (state.value.selectedOption) {
-            ++state.value.currentSlide
-        }
-
-        else {
-            state.value.isErrorVisible = true
-        }
+        ++state.value.currentSlide
     }
 
     function decrementSlide() {
@@ -72,7 +66,6 @@ export const useQuizStore = defineStore('quiz', () => {
     function addData() {
 
         const data = state.value.selectedOption
-
         const currentAnswer = state.value.userAnswers[state.value.currentSlide - 1]
 
         if (currentAnswer) {
@@ -85,5 +78,80 @@ export const useQuizStore = defineStore('quiz', () => {
         }
     }
 
-    return { state, incrementSlide, decrementSlide, startQuiz, finishQuiz, restartQuiz, isLastSlide, isFirstSlide, addData }
+    function goForward() {
+
+        if (state.value.currentSlide === state.value.totalSlides && state.value.selectedOption && state.value.formSubmitted) {
+            addData()
+            finishQuiz()
+        }
+
+        else if (state.value.currentSlide === state.value.totalSlides && state.value.selectedOption) {
+            addData()
+            state.status = 'verification'
+        }
+
+        else if (state.value.selectedOption) {
+            addData()
+            incrementSlide()
+        }
+
+        else {
+            state.value.isErrorVisible = true
+        }
+    }
+
+    function findAnswer(targetAnswer) {
+        if (state.value.selectedOption) return state.value.selectedOption === targetAnswer
+
+        const currentAnswer = state.value.userAnswers[state.currentSlide - 1]
+        return currentAnswer === targetAnswer
+    }
+
+
+    function storeData(event, inputType) {
+        if (inputType === 'number-input') {
+
+            let input = event.target.value
+
+            if (parseInt(input) > parseInt(event.target.getAttribute('maxlength'))) {
+                input = input.slice(0, 4)
+            }
+
+            if (parseInt(input) < 0 || isNaN(parseInt(input))) {
+                input = ''
+            }
+
+            event.target.value = input
+            state.value.selectedOption = input
+        }
+
+        if (inputType === 'single') {
+            let option = event.currentTarget.querySelector('label').textContent
+            state.value.selectedOption = option
+        }
+
+        if (inputType === 'range') {
+            state.value.selectedOption = parseInt(event.target.value)
+        }
+
+        if (inputType === 'textbox') {
+
+            let input = event.target.value
+            const lowercased = input.toLowerCase()
+            const normalizedInput = lowercased.replace(lowercased[0], lowercased[0].toUpperCase())
+
+            event.target.value = normalizedInput
+            state.value.selectedOption = normalizedInput
+        }
+    }
+
+    function getCurrentAnswer() {
+        state.value.selectedOption = state.value.userAnswers[state.value.currentSlide - 1] ?? null
+    }
+
+    return {
+        state, incrementSlide, decrementSlide, startQuiz,
+        finishQuiz, restartQuiz, isLastSlide,
+        isFirstSlide, addData, goForward, findAnswer, storeData, getCurrentAnswer
+    }
 })

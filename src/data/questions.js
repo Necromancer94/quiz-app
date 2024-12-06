@@ -10,11 +10,8 @@ export const questions = [
 
         "imagePaths": [
             "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/640px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
-
             "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg/1200px-Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg",
-
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6ph0x3dfTzLsUiqbZiYiQHa1FKlJqC9xRw&s",
-
             "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg/640px-Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg"
         ],
 
@@ -52,11 +49,8 @@ export const questions = [
 
         "imagePaths": [
             "https://www.whitehouse.gov/wp-content/uploads/2021/01/04_james_madison.jpg",
-
             "https://upload.wikimedia.org/wikipedia/commons/0/05/Alexander_Hamilton_portrait_by_John_Trumbull_1806.jpg",
-
             "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/640px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
-
             "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg/1200px-Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg"
         ],
 

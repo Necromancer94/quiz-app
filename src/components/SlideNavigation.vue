@@ -1,31 +1,7 @@
 <script setup>
 
 import { useQuizStore } from '@/stores/state';
-
 const quizStore = useQuizStore()
-const state = quizStore.state
-
-function goNext() {
-
-    if (state.currentSlide === state.totalSlides && state.selectedOption && state.formSubmitted) {
-        quizStore.addData()
-        quizStore.finishQuiz()
-    }
-
-    else if (state.currentSlide === state.totalSlides && state.selectedOption) {
-        quizStore.addData()
-        state.status = 'verification'
-    }
-
-    else if (state.selectedOption) {
-        quizStore.addData()
-        quizStore.incrementSlide()
-    }
-
-    else {
-        state.isErrorVisible = true
-    }
-}
 
 </script>
 
@@ -38,7 +14,7 @@ function goNext() {
             Previous
         </button>
 
-        <button @click="goNext" class="next-btn">
+        <button @click="quizStore.goForward()" class="next-btn">
             {{ quizStore.isLastSlide() ? 'Finish' : 'Next' }}
         </button>
 
