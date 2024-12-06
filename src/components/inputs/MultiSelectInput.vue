@@ -26,7 +26,7 @@ onMounted(() => {
     <div>
         <fieldset>
             <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id"
-                @click="quizStore.storeSelected($event)" tabindex="0" @keydown.enter="quizStore.goForward()">
+                @click="quizStore.storeAllSelected($event)" tabindex="0" @keydown.enter="quizStore.goForward()">
 
                 <div class="img-container" v-if="questionObj.imagePaths">
                     <img :src="questionObj.imagePaths[index]">
@@ -34,7 +34,7 @@ onMounted(() => {
 
                 <div class="label-container">
                     <div class="radio-btn" :id="'opt' + (index + 1)" name="single-choice">
-                        <div :class="quizStore.findAnswer(answer) ? 'radio-btn-active' : ''"></div>
+                        <div :class="quizStore.findAnswers(answer) ? 'radio-btn-active' : ''"></div>
                     </div>
                     <label :for="'opt' + (index + 1)"> {{ answer }} </label>
                 </div>

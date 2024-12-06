@@ -144,4 +144,17 @@ export const questions = [
         "correctAnswer": "Wyoming"
     },
 
+    {
+        "id": 13,
+        "question": "Which of the following US states border Mexico (select all that apply)?",
+        "answers": [
+            "California",
+            "Texas",
+            "Wyoming",
+            "North Carolina"
+        ],
+        "type": "multi",
+        "correctAnswer": ["Texas", "California"]
+    },
+
 ]
