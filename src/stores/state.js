@@ -103,7 +103,7 @@ export const useQuizStore = defineStore('quiz', () => {
 
         else if (state.value.currentSlide === state.value.totalSlides && state.value.selectedOption) {
             addData()
-            state.status = 'verification'
+            state.value.status = 'verification'
         }
 
         else if (state.value.selectedOption) {
