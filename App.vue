@@ -10,7 +10,6 @@ import { useTimerStore } from '@/stores/timer';
 
 const quizStore = useQuizStore()
 const state = quizStore.state
-
 const timerStore = useTimerStore()
 
 </script>
@@ -26,7 +25,7 @@ const timerStore = useTimerStore()
           This quiz will test your knowledge of significant events, influential figures, and key policies that have
           shaped the United States.
         </p>
-        <button @click="quizStore.startQuiz()">Start quiz</button>
+        <button @click="quizStore.startQuiz">Start quiz</button>
       </div>
     </Slide>
 
@@ -47,7 +46,7 @@ const timerStore = useTimerStore()
       <div>
         <h2>Fill in this short form to access the quiz results</h2>
 
-        <form @submit.prevent="quizStore.finishQuiz()">
+        <form @submit.prevent="quizStore.finishQuiz">
           <p> Since this is just a pet project, feel free to leave dummy data - it won't be stored anyway!</p>
 
 
@@ -80,7 +79,7 @@ const timerStore = useTimerStore()
         <p style="margin-bottom: 2rem;">
           You've scored {{ state.currentPoints }} of {{ state.totalPoints }}.
         </p>
-        <button @click="quizStore.restartQuiz()">Try again</button>
+        <button @click="quizStore.restartQuiz">Try again</button>
       </div>
     </Slide>
 

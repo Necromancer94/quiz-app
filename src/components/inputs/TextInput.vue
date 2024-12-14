@@ -26,7 +26,7 @@ onMounted(() => {
     <div>
         <div class="text-input-container">
             <label for="textbox"> Type your answer</label>
-            <input @keydown.enter="quizStore.goForward()" @change="quizStore.storeText($event)"
+            <input @keydown.enter="quizStore.goForward" @change="quizStore.storeText($event)"
                 v-model="state.selectedOption" type="text" name="textbox" id="textbox">
         </div>
 

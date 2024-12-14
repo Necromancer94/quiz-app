@@ -28,7 +28,7 @@ onMounted(() => {
             <label for="range">Drag to the right number </label>
             <div>
                 <span>{{ questionObj.rangeStart }}</span>
-                <input @change="quizStore.storeRangeValue($event)" @keydown.enter="quizStore.goForward()" type="range"
+                <input @change="quizStore.storeRangeValue($event)" @keydown.enter="quizStore.goForward" type="range"
                     id="range" name="range" step="1" :min="questionObj.rangeStart" :max="questionObj.rangeEnd"
                     :value="state.selectedOption">
                 <span>{{ questionObj.rangeEnd }}</span>

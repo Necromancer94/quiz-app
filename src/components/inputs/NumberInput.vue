@@ -27,7 +27,7 @@ onMounted(() => {
         <fieldset class="col">
             <label for="number-input"> Type your answer </label>
             <input :value="state.selectedOption" type="number" id="number-input" name="number-input" maxlength="4"
-                @keyup="quizStore.storeNumber($event)" @keydown.enter="quizStore.goForward()">
+                @keyup="quizStore.storeNumber($event)" @keydown.enter="quizStore.goForward">
         </fieldset>
         <ErrorMessage :errorText="'Type a year before proceeding'"></ErrorMessage>
     </div>

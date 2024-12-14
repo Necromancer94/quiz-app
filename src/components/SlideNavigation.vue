@@ -9,12 +9,11 @@ const quizStore = useQuizStore()
 
     <div class="btn-container">
 
-        <button :class="quizStore.isFirstSlide() ? 'inactive' : ''" @click="quizStore.decrementSlide()"
-            class="prev-btn">
+        <button :class="quizStore.isFirstSlide() ? 'inactive' : ''" @click="quizStore.decrementSlide" class="prev-btn">
             Previous
         </button>
 
-        <button @click="quizStore.goForward()" class="next-btn">
+        <button @click="quizStore.goForward" class="next-btn">
             {{ quizStore.isLastSlide() ? 'Finish' : 'Next' }}
         </button>
 

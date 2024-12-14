@@ -26,7 +26,7 @@ onMounted(() => {
     <div>
         <fieldset>
             <div v-for="(answer, index) in questionObj.answers" :key="questionObj.id"
-                @click="quizStore.storeSelected($event)" tabindex="0" @keydown.enter="quizStore.goForward()">
+                @click="quizStore.storeSelected($event)" tabindex="0" @keydown.enter="quizStore.goForward">
 
                 <div class="img-container" v-if="questionObj.imagePaths">
                     <img :src="questionObj.imagePaths[index]">
